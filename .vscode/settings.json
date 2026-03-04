@@ -1,0 +1,4 @@
+{
+    "python.defaultInterpreterPath": "/home/retelect/Desktop/newapp/backend/venv/bin/python",
+    "python.analysis.typeCheckingMode": "basic"
+}

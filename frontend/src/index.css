@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon-green: #00ff41;
+  --color-neon-blue: #008F11;
+  --color-brand-indigo: #5442F5;
+  --color-brand-indigo-hover: #3B2ECC;
+  --color-bg-dark: #050505;
+  --color-bg-card: #0F0F13;
+  --color-bg-card-hover: #1A1A24;
+  --color-border-subtle: #2A2A35;
+  --color-keep: #00E676;
+  --color-cut: #FF3B30;
+  --color-text-dim: #8E8E9F;
+  --font-mono: "Fira Code", monospace;
+}
+
+@layer utilities {
+  .glow-primary {
+    box-shadow: 0 0 24px -4px rgba(84, 66, 245, 0.5);
+  }
+}
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg-dark);
+  color: #ffffff;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
