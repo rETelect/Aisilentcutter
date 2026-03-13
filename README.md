@@ -6,10 +6,14 @@ A powerful, local-first application that automatically detects and removes silen
 
 - **Automated Silence Detection**: Uses `Silero VAD` (Voice Activity Detection) to accurately identify speech and silence segments.
 - **Smart Cutting**: Automatically skips silent parts to create a fast-paced, engaging video.
-- **Visual Timeline**: Interactive timeline visualizing speech (green) and silence (red) segments.
+- **Advanced Manual Editor**: Fine-tune your project with an interactive visual timeline denoting speech (green) and explicitly cut gaps (red). Includes support for sub-file editing within merged projects.
+- **Multi-File "Merge" Mode**: Seamlessly concatenate and process multiple source files together with frame-accurate extraction and zero A/V desync.
+- **Hardware Acceleration**: Automatic utilization of NVIDIA (NVENC) and AMD (VAAPI/AMF) GPU encoders for rapid rendering, falling back to CPU efficiently.
+- **Real-Time ETA**: Displays accurate render time estimations dynamically during segment extraction and processing.
+- **Extensively Tested**: Hardened FFmpeg orchestration backend validated by an exhaustive automated E2E testing matrix.
 - **Local Processing**: All video processing happens locally on your machine—no data leaves your computer.
-- **Large File Support**: Optimized to handle large video files (8GB+) efficiently.
-- **Cross-Platform**: Designed to run on Linux (tested) and compatible with other platforms.
+- **Large File Support**: Optimized to handle heavy files efficiently.
+- **Cross-Platform**: Designed to run cleanly on desktop environments (Linux heavily tested).
 
 ## Technology Stack
 

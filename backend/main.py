@@ -414,8 +414,7 @@ async def download_file(filename: str):
     return FileResponse(
         path=file_path,
         filename=filename,
-        media_type="video/mp4",
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+        media_type="video/mp4"
     )
 
 

@@ -736,7 +736,7 @@ class VideoProcessor:
         start_time = time.time()
         
         extracted_count = 0
-        use_gpu = settings.get("use_gpu", False)
+        gpu_setting = settings.get("use_gpu", False)
         use_turbo = settings.get("use_turbo", False)
         
         # Parallel extraction config
@@ -773,7 +773,10 @@ class VideoProcessor:
             seg_file = temp_dir / f"seg_{idx:04d}.mp4"
             
             fade_dur = min(0.03, seg_duration / 2)
-            a_filter = f"afade=t=in:ss=0:d={fade_dur:.3f},afade=t=out:st={seg_duration-fade_dur:.3f}:d={fade_dur:.3f},loudnorm=I=-14:LRA=11:TP=-1.5"
+            if fade_dur > 0:
+                a_filter = f"afade=t=in:ss=0:d={fade_dur:.3f},afade=t=out:st={seg_duration-fade_dur:.3f}:d={fade_dur:.3f},loudnorm=I=-14:LRA=11:TP=-1.5"
+            else:
+                a_filter = "loudnorm=I=-14:LRA=11:TP=-1.5"
 
             v_filters = []
 
@@ -798,7 +801,7 @@ class VideoProcessor:
             v_filter_str = ",".join(v_filters)
             
             hw_args = []
-            if use_gpu == "nvidia":
+            if gpu_setting == "nvidia":
                 if torch.cuda.is_available():
                     v_codec = "h264_nvenc"
                     v_args = ["-c:v", v_codec, "-preset", "p1", "-crf", "23"] # NVENC uses p1..p7 presets
@@ -806,7 +809,7 @@ class VideoProcessor:
                     self.log("NVIDIA GPU requested but not available. Falling back to libx264.")
                     v_codec = "libx264"
                     v_args = ["-c:v", v_codec, "-preset", "ultrafast", "-crf", "23"]
-            elif use_gpu == "amd":
+            elif gpu_setting == "amd":
                 import platform
                 if platform.system() == "Linux":
                     v_codec = "h264_vaapi"
@@ -884,6 +887,11 @@ class VideoProcessor:
                 if proc.returncode != 0 and not self.cancelled:
                     err = stderr_data.decode(errors='replace') if stderr_data else "unknown"
                     self.log(f"Segment {idx} failed: {err}")
+                    if seg_file.exists(): seg_file.unlink()
+                    return None
+                    
+                if not seg_file.exists() or seg_file.stat().st_size == 0:
+                    self.log(f"Segment {idx} is empty or missing despite success code.")
                     if seg_file.exists(): seg_file.unlink()
                     return None
                     
