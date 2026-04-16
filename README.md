@@ -26,50 +26,38 @@ A powerful, local-first application that automatically detects and removes silen
 - **Python 3.12+**
 - **Node.js 20+** (and `npm`)
 - **FFmpeg** (Must be installed and accessible in your system PATH)
+- **SSH Key Configured**: Ensure you have an SSH key generated and linked to your GitHub account for secure authentication.
 
 ## Installation
 
-### 1. Clone the Repository
+### 1. Clone the Repository (via SSH)
+
+GitHub deprecated password authentication. Use the SSH protocol to securely clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/silentcutter.git
+git clone git@github.com:yourusername/silentcutter.git
 cd silentcutter
 ```
 
-### 2. Backend Setup
+### 2. Setup Dependencies
 
-Create a virtual environment and install Python dependencies.
+Initialize both the Python backend and the Node.js frontend environments:
 
 ```bash
-# Navigate to project root
-cd silentcutter
-
-# Create virtual environment
+# Setup Backend
 python3 -m venv backend/venv
-
-# Activate virtual environment
 source backend/venv/bin/activate
-
-# Install dependencies
 pip install -r backend/requirements.txt
-```
 
-### 3. Frontend Setup
-
-Install Node.js dependencies.
-
-```bash
+# Setup Frontend
 cd frontend
 npm install
+cd ..
 ```
 
 ## Running the Application
 
-You can run the application using the provided helper scripts or manually.
-
-### Using Scripts (Recommended)
-
-To start both the backend and the Electron app:
+You can start both the backend API and the Electron interface automatically using the provided bash script:
 
 ```bash
 # Make sure the script is executable
@@ -79,34 +67,14 @@ chmod +x start_electron.sh
 ./start_electron.sh
 ```
 
-### Manual Start
-
-#### 1. Start the Backend API
-
-```bash
-# From project root
-source backend/venv/bin/activate
-cd backend
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
-
-#### 2. Start the Frontend (Electron)
-
-In a new terminal:
-
-```bash
-cd frontend
-npm run electron:dev
-```
-
 ## Usage
 
-1.  **Launch the App**: Open the application using the instructions above.
-2.  **Select Video**: Drag and drop a video file or browse to select one.
-3.  **Analyze**: The app will process the audio to detect silence.
-4.  **Review**: See the generated timeline with cut/keep segments.
-5.  **Render**: Click to render the final video with silence removed.
-6.  **Output**: The processed video will be saved in the `backend/outputs` directory.
+1. **Launch the App**: Run the script above to open the application.
+2. **Select Video**: Drag and drop a video file or browse to select one.
+3. **Analyze**: The app will process the audio to detect silence.
+4. **Review**: See the generated timeline with cut/keep segments.
+5. **Render**: Click to render the final video with silence removed.
+6. **Output**: The processed video will be saved in the `backend/outputs` directory.
 
 ## License
 
