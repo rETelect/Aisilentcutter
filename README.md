@@ -32,7 +32,7 @@ A powerful, local-first application that automatically detects and removes silen
 
 ### 1. Clone the Repository (via SSH)
 
-GitHub deprecated password authentication. Use the SSH protocol to securely clone the repository:
+ Use the SSH protocol to securely clone the repository:
 
 ```bash
 git clone git@github.com:yourusername/silentcutter.git
